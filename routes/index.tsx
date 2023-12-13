@@ -2,7 +2,7 @@ import { useSignal } from "@preact/signals";
 import Counter from "../islands/Counter.tsx";
 import { defineRoute } from "$fresh/server.ts";
 import { getAuthenticatedUser } from "../utils/github.ts";
-import { getUserById, getUserBySession } from "../utils/db.ts";
+import { getUserById, getUserBySession, listPost } from "../utils/db.ts";
 import Yotei from "../islands/Yotei.tsx";
 import { User } from "../utils/types.ts";
 import { LoginProps } from "./_middleware.tsx";
@@ -24,11 +24,34 @@ const times = [
 export default defineRoute<LoginProps>(async (req, ctx) => {
   const user = ctx.state.user;
 
+  const posts = await listPost();
+
   return (
-    <div class="px-4 py-8 mx-auto max-w-7xl">
-      <h1 class="text-3xl font-bold text-center text-gray-900">
-        イベント開催くん
-      </h1>
+    <div>
+      <h2>
+        こんなイベントがあったらいいな
+      </h2>
+
+      {posts.map((post) => {
+        return (
+          <>
+            <h3>
+              <a class="block underline my-2" href={`/events/${post.id}`}>
+                {post.title}
+              </a>
+            </h3>
+          </>
+        );
+      })}
+
+      <div>
+        <a
+          href="/events/new"
+          class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+        >
+          提案
+        </a>
+      </div>
 
       {user === undefined && (
         <a href="/signin">
@@ -44,7 +67,7 @@ export default defineRoute<LoginProps>(async (req, ctx) => {
               src={user.avatarUrl}
               alt={user.name}
             />
-            <span class="text-lg font-bold">{user.name}さんの予定</span>
+            <span class="text-lg font-bold">{user.name}さんのざっくり予定</span>
           </div>
 
           <Yotei
