@@ -3,6 +3,9 @@ import {
   createHelpers,
 } from "https://deno.land/x/deno_kv_oauth@v0.10.0/mod.ts";
 import type { Plugin } from "$fresh/server.ts";
+import { getUserById, setUserWithSession } from "../utils/db.ts";
+import { getAuthenticatedUser } from "../utils/github.ts";
+import { User } from "../utils/types.ts";
 
 const { signIn, handleCallback, signOut, getSessionId } = createHelpers(
   createGitHubOAuthConfig(),
@@ -18,10 +21,31 @@ export default {
       },
     },
     {
-      path: "/callback",
+      path: "/auth/oauth2callback",
       async handler(req) {
-        // Return object also includes `accessToken` and `sessionId` properties.
-        const { response } = await handleCallback(req);
+        const { response, tokens, sessionId } = await handleCallback(req);
+        const ghUser = await getAuthenticatedUser(tokens!.accessToken);
+        const userInDb = await getUserById(String(ghUser.id));
+
+        if (userInDb) {
+          await setUserWithSession({
+            id: String(ghUser.id),
+            login: ghUser.login,
+            name: ghUser.name,
+            avatarUrl: ghUser.avatar_url,
+            role: userInDb.role,
+          }, sessionId);
+        } else {
+          const user: User = {
+            id: String(ghUser.id),
+            name: ghUser.name,
+            avatarUrl: ghUser.avatar_url,
+            login: ghUser.login,
+            role:   "guest",
+          };
+          await setUserWithSession(user, sessionId);
+        }
+
         return response;
       },
     },
