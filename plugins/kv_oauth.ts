@@ -41,7 +41,7 @@ export default {
             name: ghUser.name,
             avatarUrl: ghUser.avatar_url,
             login: ghUser.login,
-            role:   "guest",
+            role: "guest",
           };
           await setUserWithSession(user, sessionId);
         }

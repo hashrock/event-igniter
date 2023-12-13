@@ -11,6 +11,7 @@ export interface User {
   name: string;
   avatarUrl: string;
   role: UserRole;
+  availability?: string;
 }
 
 export interface Post {

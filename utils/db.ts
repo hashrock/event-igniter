@@ -1,8 +1,7 @@
-import {  Post, User } from "./types.ts";
+import { Post, User } from "./types.ts";
 import * as blob from "https://deno.land/x/kv_toolbox@0.0.2/blob.ts";
 import { ulid } from "https://deno.land/x/ulid@v0.2.0/mod.ts";
 
-// @ts-ignore: idk why but vscode extension warns
 const kv = await Deno.openKv();
 
 export async function setUserWithSession(user: User, session: string) {
@@ -64,6 +63,23 @@ export function getImageData(uuid: string) {
   return blob.get(kv, ["imagedata", uuid]);
 }
 
+// 時間
+type Time = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+type Day = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+type Availability = "unavailable" | "maybe" | "available";
+const times = [
+  "00:00 - 03:00",
+  "03:00 - 06:00",
+  "06:00 - 09:00",
+  "09:00 - 12:00",
+  "12:00 - 15:00",
+  "15:00 - 18:00",
+  "18:00 - 21:00",
+  "21:00 - 24:00",
+];
+// Availabilityフォーマット
+// <Day><Time><Availability>,<Day><Time><Availability>,....
+// ex) 032,041,051,061,071,141,152,162,172,202,...
 
 export async function addPost(
   title: string,
