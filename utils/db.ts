@@ -27,6 +27,16 @@ export async function updateUser(user: User) {
   await kv.set(["users_by_login", user.login], user);
 }
 
+export async function updateUserAvailabilities(
+  id: string,
+  availability: string,
+) {
+  const user = await getUserById(id);
+  if (!user) throw new Error("user not found");
+  user.availability = availability;
+  await updateUser(user);
+}
+
 export async function deleteUser(id: string) {
   await kv.delete(["users", id]);
   await kv.delete(["users_by_login", id]);
