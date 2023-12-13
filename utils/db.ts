@@ -2,6 +2,7 @@ import {  Post, User } from "./types.ts";
 import * as blob from "https://deno.land/x/kv_toolbox@0.0.2/blob.ts";
 import { ulid } from "https://deno.land/x/ulid@v0.2.0/mod.ts";
 
+// @ts-ignore: idk why but vscode extension warns
 const kv = await Deno.openKv();
 
 export async function setUserWithSession(user: User, session: string) {
