@@ -6,6 +6,7 @@ import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $_layout from "./routes/_layout.tsx";
 import * as $_middleware from "./routes/_middleware.tsx";
+import * as $api_events_id_interest from "./routes/api/events/[id]/interest.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $api_new from "./routes/api/new.tsx";
 import * as $api_yotei from "./routes/api/yotei.tsx";
@@ -24,6 +25,7 @@ const manifest = {
     "./routes/_app.tsx": $_app,
     "./routes/_layout.tsx": $_layout,
     "./routes/_middleware.tsx": $_middleware,
+    "./routes/api/events/[id]/interest.tsx": $api_events_id_interest,
     "./routes/api/joke.ts": $api_joke,
     "./routes/api/new.tsx": $api_new,
     "./routes/api/yotei.tsx": $api_yotei,

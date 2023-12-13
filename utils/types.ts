@@ -14,6 +14,21 @@ export interface User {
   availability?: string;
 }
 
+export interface Comment {
+  id: string;
+  eventId: string;
+  body: string;
+  user: User;
+  createdAt: Date;
+}
+
+export interface Interest {
+  id: string;
+  eventId: string;
+  user: User;
+  interest: number;
+}
+
 export interface Post {
   id: string;
   title: string;
@@ -21,4 +36,9 @@ export interface Post {
   authorId: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface PostDetail extends Post {
+  comments: Comment[];
+  interest: Interest[];
 }

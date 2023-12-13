@@ -1,4 +1,4 @@
-import { Post, User } from "./types.ts";
+import { Comment, Interest, Post, User } from "./types.ts";
 import * as blob from "https://deno.land/x/kv_toolbox@0.0.2/blob.ts";
 import { ulid } from "https://deno.land/x/ulid@v0.2.0/mod.ts";
 
@@ -35,6 +35,40 @@ export async function updateUserAvailabilities(
   if (!user) throw new Error("user not found");
   user.availability = availability;
   await updateUser(user);
+}
+
+export async function updateEventInterest(
+  user: User,
+  eventId: string,
+  interest: number,
+) {
+  const interestObj: Interest = {
+    id: ulid(),
+    user,
+    eventId,
+    interest,
+  };
+  const post = await getPost(eventId);
+  if (!post) throw new Error("post not found");
+  await kv.set(["posts", eventId, "interest", interestObj.id], interestObj);
+}
+
+export async function addComment(
+  user: User,
+  eventId: string,
+  body: string,
+) {
+  const commentObj: Comment = {
+    id: ulid(),
+    user,
+    eventId,
+    body,
+    createdAt: new Date(),
+  };
+
+  const post = await getPost(eventId);
+  if (!post) throw new Error("post not found");
+  await kv.set(["posts", eventId, "comments"], commentObj);
 }
 
 export async function deleteUser(id: string) {
@@ -119,7 +153,27 @@ export async function listPost() {
 
 export async function getPost(id: string) {
   const res = await kv.get<Post>(["posts", id]);
-  return res.value;
+  const comments = await kv.list<Comment>({
+    prefix: ["posts", id, "comments"],
+  });
+  const interests = await kv.list<Interest>(
+    { prefix: ["posts", id, "interest"] },
+  );
+
+  const commentsList: Comment[] = [];
+  const interestsList: Interest[] = [];
+  for await (const item of comments) {
+    commentsList.push(item.value);
+  }
+  for await (const item of interests) {
+    interestsList.push(item.value);
+  }
+
+  return {
+    ...res.value,
+    comments: commentsList,
+    interest: interestsList,
+  };
 }
 
 export async function updatePost(
