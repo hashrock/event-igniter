@@ -14,11 +14,11 @@ export default defineRoute(async (req, ctx) => {
   return (
     <div class="page">
       <div class="page__header">
-        <h1 class="page__title">{post.title}</h1>
+        <h1 class="page__title">タイトル：{post.title}</h1>
       </div>
       <div class="page__body">
         <div class="page__content">
-          <p>{post.body}</p>
+          <p>たとえば：{post.body}</p>
         </div>
       </div>
     </div>
