@@ -12,6 +12,7 @@ export interface User {
   avatarUrl: string;
   role: UserRole;
   availability?: string;
+  email?: string;
 }
 
 export interface Comment {
