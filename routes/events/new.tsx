@@ -17,7 +17,6 @@ export default defineRoute<LoginProps>(async (req, ctx) => {
 
       <form method="post" action="/api/new">
         <div>
-          <label htmlFor="title">タイトル</label>
           <input
             class="border border-gray-400"
             id="title"

@@ -21,13 +21,8 @@ export default defineRoute(async (req, ctx) => {
 
   return (
     <div class="page">
-      <div class="page__header">
-        <h1 class="page__title">タイトル：{post.title}</h1>
-      </div>
-      <div class="page__body">
-        <div class="page__content">
-          <p>たとえば：{post.body}</p>
-        </div>
+      <div class="mt-16">
+        <h1 class="text-4xl font-bold">「{post.title}」について話したい</h1>
       </div>
 
       <div>
@@ -37,26 +32,16 @@ export default defineRoute(async (req, ctx) => {
             type="submit"
             value="興味ある"
           />
-          <label class="block">
-            <input type="radio" name="interest" value="0" />
-            0: 聞きたいだけ
-          </label>
-          <label class="block">
-            <input type="radio" name="interest" value="1" />
-            1: 話題に自信ないけど会話に混ざるのはまんざらでもない
-          </label>
-          <label class="block">
-            <input type="radio" name="interest" value="2" />
-            2: 人が少なければ話すかも / 聞かれれば応答します
-          </label>
-          <label class="block">
-            <input type="radio" name="interest" value="3" />
-            3: 積極的に話したい
-          </label>
-          <label class="block">
-            <input type="radio" name="interest" value="4" />
-            4: 聞いてほしいことがある
-          </label>
+
+          <h2 class="mt-2 font-bold">聞きたい度</h2>
+          <div>
+            聞きたい←<input
+              type="range"
+              name="interest"
+              min="0"
+              max="4"
+            />→話したい
+          </div>
         </form>
       </div>
 
@@ -77,10 +62,21 @@ export default defineRoute(async (req, ctx) => {
       </div>
 
       <div>
-        <h2>コメント</h2>
+        <h2 class="mt-4 text-2xl font-bold">コメント</h2>
         <ul>
           {post.comments.map((comment) => <li>{comment}</li>)}
         </ul>
+      </div>
+
+      <div>
+        <h2 class="mt-4 text-2xl font-bold">作成者コマンド</h2>
+        <form action={`/api/events/${id}/delete`} method="POST">
+          <input
+            class={"px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"}
+            type="submit"
+            value="このイベントを削除"
+          />
+        </form>
       </div>
     </div>
   );

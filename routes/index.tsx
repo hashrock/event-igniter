@@ -28,8 +28,36 @@ export default defineRoute<LoginProps>(async (req, ctx) => {
 
   return (
     <div>
-      <h2>
-        こんなイベントがあったらいいな
+      <h2 class="text-2xl font-bold">
+        どんな話がしたい？
+      </h2>
+
+      <form class="mt-4 space-y-4" method="post" action="/api/new">
+        <div class="">
+          「
+          <input
+            class="border border-gray-400 text-xl px-2 py-1 rounded w-96"
+            id="title"
+            type="text"
+            name="title"
+            value=""
+            placeholder="例) 今日の夜ご飯"
+          />
+          」 の話がしたい
+        </div>
+
+        <div>
+          <button
+            class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+            type="submit"
+          >
+            提案する
+          </button>
+        </div>
+      </form>
+
+      <h2 class="mt-8 text-2xl font-bold">
+        みんなのしたい話一覧
       </h2>
 
       {posts.map((post) => {
@@ -43,15 +71,6 @@ export default defineRoute<LoginProps>(async (req, ctx) => {
           </>
         );
       })}
-
-      <div>
-        <a
-          href="/events/new"
-          class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-        >
-          提案
-        </a>
-      </div>
 
       {user === undefined && (
         <a href="/signin">
