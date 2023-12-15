@@ -27,16 +27,6 @@ export default defineRoute<LoginProps>(async (req, ctx) => {
           />
         </div>
 
-        <div>
-          <label htmlFor="body">内容</label>
-          <input
-            class="border border-gray-400"
-            id="body"
-            type="text"
-            name="body"
-            value=""
-          />
-        </div>
         <button
           class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
           type="submit"

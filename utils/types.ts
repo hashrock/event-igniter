@@ -33,7 +33,8 @@ export interface Interest {
 export interface Post {
   id: string;
   title: string;
-  body: string;
+  body?: string;
+  url?: string;
   authorId: string;
   createdAt: Date;
   updatedAt: Date;

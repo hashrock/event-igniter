@@ -127,14 +127,12 @@ const times = [
 
 export async function addPost(
   title: string,
-  body: string,
   authorId: string,
 ) {
   const uuid = ulid();
   const post: Post = {
     id: uuid,
     title,
-    body,
     authorId,
     createdAt: new Date(),
     updatedAt: new Date(),

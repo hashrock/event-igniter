@@ -14,13 +14,12 @@ export const handler: Handlers<LoginProps> = {
 
     const form = await req.formData();
     const title = form.get("title")?.toString();
-    const body = form.get("body")?.toString();
 
-    if (!title || !body) {
+    if (!title) {
       return new Response("Bad Request", { status: 400 });
     }
 
-    await addPost(title, body, user.id);
+    await addPost(title, "", user.id);
     return new Response(null, {
       status: 303,
       headers: new Headers({
