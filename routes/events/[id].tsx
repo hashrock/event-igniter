@@ -3,14 +3,6 @@
 import { defineRoute } from "$fresh/server.ts";
 import { getPost } from "../../utils/db.ts";
 
-const interesetLabels = [
-  "聞きたいだけ",
-  "話題に自信ないけど会話に混ざるのはまんざらでもない",
-  "人が少なければ話すかも / 聞かれれば応答します",
-  "積極的に話したい",
-  "聞いてほしいことがある",
-];
-
 export default defineRoute(async (req, ctx) => {
   const id = ctx.params.id;
   const post = await getPost(id);
@@ -22,10 +14,12 @@ export default defineRoute(async (req, ctx) => {
   return (
     <div class="page">
       <div class="mt-16">
-        <h1 class="text-4xl font-bold">「{post.title}」について話したい</h1>
+        <h1 class="text-4xl font-bold text-center">
+          「{post.title}」について話したい
+        </h1>
       </div>
 
-      <div>
+      <div class="text-center max-w-sm py-16 mx-auto">
         <form action={`/api/events/${id}/interest`} method="POST">
           <input
             class={"px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"}
@@ -45,19 +39,27 @@ export default defineRoute(async (req, ctx) => {
         </form>
       </div>
 
-      <div>
-        <h2>興味ある人たち</h2>
-        <ul>
-          {post.interest.map((interest) => (
-            <li>
-              <img
-                width={32}
-                src={interest.user.avatarUrl}
-                alt={interest.user.name}
-              />
-              {interest.user.name} ({interesetLabels[interest.interest]})
-            </li>
-          ))}
+      <div class="mt-8">
+        <h2 class="text-2xl text-bold">興味ある人たち</h2>
+        <ul class="mt-4">
+          {post.interest.sort((a, b) => b.interest - a.interest)
+            .map((interest) => (
+              <li class="flex items-center">
+                <img
+                  width={32}
+                  src={interest.user.avatarUrl}
+                  alt={interest.user.name}
+                />
+                {interest.user.name}
+                {interest.interest > 2 && (
+                  <>
+                    <span class="ml-2 px-1 py-0.5 text-sm rounded text-yellow-700 bg-yellow-200">
+                      話したい
+                    </span>
+                  </>
+                )}
+              </li>
+            ))}
         </ul>
       </div>
 
