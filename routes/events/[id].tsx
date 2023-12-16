@@ -66,8 +66,32 @@ export default defineRoute(async (req, ctx) => {
       <div>
         <h2 class="mt-4 text-2xl font-bold">コメント</h2>
         <ul>
-          {post.comments.map((comment) => <li>{comment}</li>)}
+          {post.comments.map((comment) => (
+            <li>
+              <div>
+                {comment.body}
+              </div>
+              <img
+                width="16"
+                src={comment.user.avatarUrl}
+                alt={comment.user.name}
+              />
+            </li>
+          ))}
         </ul>
+
+        <form action={`/api/events/${id}/comment`} method="POST">
+          <textarea
+            class="mt-2 block w-full px-4 py-2 border border-gray-400 rounded"
+            name="body"
+            placeholder="コメント"
+          />
+          <input
+            class={"mt-2 px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"}
+            type="submit"
+            value="コメントする"
+          />
+        </form>
       </div>
 
       <div>

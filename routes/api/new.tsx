@@ -19,7 +19,7 @@ export const handler: Handlers<LoginProps> = {
       return new Response("Bad Request", { status: 400 });
     }
 
-    await addPost(title, "", user.id);
+    await addPost(title, user.id);
     return new Response(null, {
       status: 303,
       headers: new Headers({

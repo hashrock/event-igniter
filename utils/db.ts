@@ -68,7 +68,7 @@ export async function addComment(
 
   const post = await getPost(eventId);
   if (!post) throw new Error("post not found");
-  await kv.set(["posts", eventId, "comments"], commentObj);
+  await kv.set(["posts", eventId, "comments", commentObj.id], commentObj);
 }
 
 export async function deleteUser(id: string) {

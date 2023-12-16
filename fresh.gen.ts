@@ -6,6 +6,7 @@ import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $_layout from "./routes/_layout.tsx";
 import * as $_middleware from "./routes/_middleware.tsx";
+import * as $api_events_id_comment from "./routes/api/events/[id]/comment.ts";
 import * as $api_events_id_delete from "./routes/api/events/[id]/delete.ts";
 import * as $api_events_id_interest from "./routes/api/events/[id]/interest.ts";
 import * as $api_joke from "./routes/api/joke.ts";
@@ -26,6 +27,7 @@ const manifest = {
     "./routes/_app.tsx": $_app,
     "./routes/_layout.tsx": $_layout,
     "./routes/_middleware.tsx": $_middleware,
+    "./routes/api/events/[id]/comment.ts": $api_events_id_comment,
     "./routes/api/events/[id]/delete.ts": $api_events_id_delete,
     "./routes/api/events/[id]/interest.ts": $api_events_id_interest,
     "./routes/api/joke.ts": $api_joke,
