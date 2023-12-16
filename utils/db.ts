@@ -50,7 +50,7 @@ export async function updateEventInterest(
   };
   const post = await getPost(eventId);
   if (!post) throw new Error("post not found");
-  await kv.set(["posts", eventId, "interest", interestObj.id], interestObj);
+  await kv.set(["posts", eventId, "interest", user.id], interestObj);
 }
 
 export async function addComment(
