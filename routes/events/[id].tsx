@@ -39,6 +39,47 @@ export default defineRoute(async (req, ctx) => {
         </form>
       </div>
 
+      <div>
+        <h2 class="mt-4 text-2xl font-bold">例えばこんな話が聞きたい：</h2>
+        <ul>
+          {post.comments.map((comment) => (
+            <li class="flex">
+              <div>
+                {comment.body}
+              </div>
+              <img
+                width={16}
+                height={16}
+                src={comment.user.avatarUrl}
+                alt={comment.user.name}
+              />
+
+              <div>
+                <button class="px-2 py-1 text-sm rounded text-white bg-blue-500 hover:bg-blue-700">
+                  聞きたい
+                </button>
+                <button class="px-2 py-1 text-sm rounded text-white bg-blue-500 hover:bg-blue-700">
+                  話したい
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <form action={`/api/events/${id}/comment`} method="POST" class="flex">
+          <input
+            class="mt-2 block w-full px-4 py-2 border border-gray-400 rounded"
+            name="body"
+            placeholder="例）和食にするか洋食にするか中華にするかの決め方"
+          />
+          <input
+            class={"mt-2 px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"}
+            type="submit"
+            value="追加"
+          />
+        </form>
+      </div>
+
       <div class="mt-8">
         <h2 class="text-2xl text-bold">興味ある人たち</h2>
         <ul class="mt-4">
@@ -64,34 +105,23 @@ export default defineRoute(async (req, ctx) => {
       </div>
 
       <div>
-        <h2 class="mt-4 text-2xl font-bold">コメント</h2>
-        <ul>
-          {post.comments.map((comment) => (
-            <li>
-              <div>
-                {comment.body}
-              </div>
-              <img
-                width="16"
-                src={comment.user.avatarUrl}
-                alt={comment.user.name}
-              />
-            </li>
-          ))}
-        </ul>
+        <h2 class="mt-4 text-2xl font-bold">開催日提案</h2>
 
-        <form action={`/api/events/${id}/comment`} method="POST">
-          <textarea
-            class="mt-2 block w-full px-4 py-2 border border-gray-400 rounded"
-            name="body"
-            placeholder="コメント"
-          />
-          <input
-            class={"mt-2 px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"}
-            type="submit"
-            value="コメントする"
-          />
-        </form>
+        <div>
+          2023/01/01 12:00
+        </div>
+        <div>
+          2023/01/02 12:00
+        </div>
+        <div>
+          2023/01/03 12:00
+        </div>
+        <div>
+          2023/01/04 12:00
+        </div>
+        <div>
+          2023/01/05 12:00 14:00
+        </div>
       </div>
 
       <div>
