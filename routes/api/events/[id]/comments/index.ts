@@ -5,8 +5,8 @@ import {
   addComment,
   updateEventInterest,
   updateUserAvailabilities,
-} from "../../../../utils/db.ts";
-import { User } from "../../../../utils/types.ts";
+} from "../../../../../utils/db.ts";
+import { User } from "../../../../../utils/types.ts";
 
 export const handler: Handlers = {
   async POST(req: Request, ctx: FreshContext) {

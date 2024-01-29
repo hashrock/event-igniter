@@ -66,7 +66,7 @@ export default defineRoute(async (req, ctx) => {
           ))}
         </ul>
 
-        <form action={`/api/events/${id}/comment`} method="POST" class="flex">
+        <form action={`/api/events/${id}/comments`} method="POST" class="flex">
           <input
             class="mt-2 block w-full px-4 py-2 border border-gray-400 rounded"
             name="body"
