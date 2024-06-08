@@ -1,5 +1,5 @@
 import { FreshContext, MiddlewareHandlerContext } from "$fresh/server.ts";
-import { getSessionId } from "https://deno.land/x/deno_kv_oauth@v0.10.0/mod.ts";
+import { getSessionId } from "@deno/kv-oauth";
 import { getUserById, getUserBySession } from "../utils/db.ts";
 import { User } from "../utils/types.ts";
 export async function handler(
