@@ -1,7 +1,4 @@
-import {
-  createGitHubOAuthConfig,
-  createHelpers,
-} from "https://deno.land/x/deno_kv_oauth@v0.10.0/mod.ts";
+import { createGitHubOAuthConfig, createHelpers } from "jsr:@deno/kv-oauth";
 import type { Plugin } from "$fresh/server.ts";
 import { getUserById, setUserWithSession } from "../utils/db.ts";
 import { getAuthenticatedUser, getUserEmails } from "../utils/github.ts";
