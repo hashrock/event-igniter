@@ -20,7 +20,7 @@ import * as $index from "./routes/index.tsx";
 import * as $new from "./routes/new.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $Yotei from "./islands/Yotei.tsx";
-import { type Manifest } from "$fresh/server.ts";
+import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
