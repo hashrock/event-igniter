@@ -13,41 +13,44 @@ export default defineRoute(async (req, ctx) => {
 
   return (
     <div class="page">
-      <div class="mt-16">
-        <h1 class="text-4xl font-bold text-center">
-          「{post.title}」について話したい
-        </h1>
-      </div>
+      <div class="mt-16 bg-blue-100 rounded-xl">
+        <div class="py-16">
+          <h1 class="text-4xl font-bold text-center">
+            「{post.title}」について話したい
+          </h1>
+        </div>
 
-      <div class="text-center max-w-sm py-16 mx-auto">
-        <form action={`/api/events/${id}/interest`} method="POST">
-          <input
-            class={"px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"}
-            type="submit"
-            value="興味ある"
-          />
+        <div class="text-center max-w-sm py-16 mx-auto">
+          <form action={`/api/events/${id}/interest`} method="POST">
+            <input
+              class={"px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"}
+              type="submit"
+              value="興味ある"
+            />
 
-          <h2 class="mt-2 font-bold">聞きたい度</h2>
-          <div>
-            聞きたい←<input
-              type="range"
-              name="interest"
-              min="0"
-              max="4"
-            />→話したい
-          </div>
-        </form>
+            <h2 class="mt-2 font-bold">聞きたい度</h2>
+            <div>
+              聞きたい←<input
+                type="range"
+                name="interest"
+                min="0"
+                max="4"
+              />→話したい
+            </div>
+          </form>
+        </div>
       </div>
 
       <div>
         <h2 class="mt-4 text-2xl font-bold">例えばこんな話が聞きたい：</h2>
-        <ul>
+        <ul class="mt-4">
           {post.comments.map((comment) => (
-            <li class="flex">
+            <li class="flex gap-2">
               <div>
                 {comment.body}
               </div>
               <img
+                class="flex-none"
                 width={16}
                 height={16}
                 src={comment.user.avatarUrl}
